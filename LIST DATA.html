@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Coba Tebak Ada Apa di Balik Gambar Ini? Kamu PASTI GAK TAHU!</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        #konten-awal {
+            padding: 20px;
+            border: 2px solid #333;
+            background-color: #fff;
+            cursor: pointer; /* Menarik untuk diklik */
+        }
+        #jumpscare {
+            display: none; /* Sembunyikan gambar seram awalnya */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: black;
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            opacity: 0; /* Mulai dengan transparan */
+            transition: opacity 0.1s; /* Efek kemunculan cepat */
+        }
+        #jumpscare img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="konten-awal">
+        <h1>Klik di Sini untuk Mengungkap Rahasia yang Tersembunyi!</h1>
+        <p>Hati-hati, tidak semua hal tersembunyi itu menyenangkan 😉</p>
+    </div>
+
+    <div id="jumpscare">
+        <img id="gambar-seram" src="https://share.google/6KJ3sLE69tHsGiNO8" alt="Jumpscare">
+    </div>
+
+    <audio id="suara-seram" src="URL_SUARA_SERAM_ANDA" preload="auto"></audio>
+
+    <script>
+        const kontenAwal = document.getElementById('konten-awal');
+        const jumpscareDiv = document.getElementById('jumpscare');
+        const suaraSeram = document.getElementById('suara-seram');
+        const gambarSeram = document.getElementById('gambar-seram');
+
+        kontenAwal.addEventListener('click', function() {
+            // Sembunyikan konten awal
+            kontenAwal.style.display = 'none';
+
+            // Tampilkan div jumpscare
+            jumpscareDiv.style.display = 'flex';
+
+            // Mainkan suara (pastikan file audio dapat diakses!)
+            suaraSeram.play();
+
+            // Atur opacity ke 1 (membuat gambar muncul tiba-tiba)
+            setTimeout(() => {
+                jumpscareDiv.style.opacity = '1';
+            }, 50); // Jeda singkat agar transisi terlihat cepat
+
+            // Opsional: Sembunyikan jumpscare setelah beberapa detik
+            setTimeout(() => {
+                jumpscareDiv.style.opacity = '0';
+                setTimeout(() => {
+                    jumpscareDiv.style.display = 'none';
+                    // Tampilkan kembali pesan "prank berhasil" atau lainnya
+                    kontenAwal.style.display = 'block';
+                    kontenAwal.innerHTML = '<h1>🤣 PRANK BERHASIL! 🤣</h1><p>Hayo, kaget kan? Refresh halaman untuk coba lagi.</p>';
+                }, 500);
+            }, 3000); // Tampil selama 3 detik
+        });
+    </script>
+
+</body>
+</html>
